@@ -126,7 +126,7 @@ else:
     raise Exception('We do not support this optimizer yet!!')
 
 # learning rate schedule
-if schedule:
+if args.schedule:
   scheduler = lr_scheduler.MultiStepLR(
       optimizer,
       args.lr_decay_epoch,
