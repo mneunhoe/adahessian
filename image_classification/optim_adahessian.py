@@ -59,7 +59,7 @@ class Adahessian_sls(Optimizer):
         defaults = dict(lr=lr, betas=betas, eps=eps,
                         weight_decay=weight_decay, hessian_power=hessian_power)
 
-        super(Adahessian, self).__init__(params, defaults)
+        super(Adahessian_sls, self).__init__(params, defaults)
 
     def get_trace(self, gradsH):
         """
