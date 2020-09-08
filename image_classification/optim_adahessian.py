@@ -38,7 +38,7 @@ def random_seed(seed):
 @contextlib.contextmanager
 def random_seed_torch(seed, device=0):
     cpu_rng_state = torch.get_rng_state()
-    #gpu_rng_state = torch.cuda.get_rng_state(0)
+    gpu_rng_state = torch.cuda.get_rng_state(0)
 
     np.random.seed(seed)
     torch.manual_seed(seed)
