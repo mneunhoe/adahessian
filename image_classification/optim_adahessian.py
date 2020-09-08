@@ -190,7 +190,7 @@ class Adahessian_sls(Optimizer):
                     
                     search_direction = -1* (exp_avg / bias_correction1 / denom + group['weight_decay'] * p.data)
                     
-                    line_m = torch.matmul(grad, search_direction.t())
+                    line_m = torch.sum(torch.mul(grad, search_direction))
                     
                     prev_loss = loss
                     c = 0.5
