@@ -120,7 +120,7 @@ elif args.optimizer == 'adahessian_sls':
     args.weight_decay = 0
     optimizer = Adahessian_sls(
         model.parameters(),
-        lr=1000,
+        lr=10,
         weight_decay=args.weight_decay)
 else:
     raise Exception('We do not support this optimizer yet!!')
