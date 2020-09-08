@@ -141,8 +141,8 @@ for epoch in range(1, args.epochs + 1):
     train_loss = 0.
     total_num = 0
     correct = 0
-
-    scheduler.step()
+    if args.schedule>0:
+      scheduler.step()
     model.train()
     with tqdm(total=len(train_loader.dataset)) as progressbar:
         for batch_idx, (data, target) in enumerate(train_loader):
