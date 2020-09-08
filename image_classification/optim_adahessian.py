@@ -73,7 +73,7 @@ class Adahessian_sls(Optimizer):
     """
 
     def __init__(self, params, lr=0.15, betas=(0.9, 0.999), eps=1e-4,
-                 weight_decay=0, hessian_power=1, line_search = True):
+                 weight_decay=0, hessian_power=1, line_search = False):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= eps:
