@@ -25,7 +25,7 @@ from copy import deepcopy
 import numpy as np
 
 
-class Adahessian(Optimizer):
+class Adahessian_sls(Optimizer):
     """Implements Adahessian algorithm.
     It has been proposed in `ADAHESSIAN: An Adaptive Second OrderOptimizer for Machine Learning`.
     Arguments:
