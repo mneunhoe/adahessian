@@ -39,6 +39,7 @@ from torch.autograd import Variable
 from utils import *
 from models.resnet import *
 from optim_adahessian import Adahessian
+from optim_adahessian import Adahessian_sls
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch Example')
 parser.add_argument('--batch-size', type=int, default=256, metavar='B',
@@ -112,18 +113,27 @@ elif args.optimizer == 'adahessian':
         model.parameters(),
         lr=args.lr,
         weight_decay=args.weight_decay)
+elif args.optimizer == 'adahessian_sls':
+    print('For AdaHessian, we use the decoupled weight decay as AdamW. Here we automatically correct this for you! If this is not what you want, please modify the code!')
+    args.weight_decay = 0
+    optimizer = Adahessian_sls(
+        model.parameters(),
+        lr=1000,
+        weight_decay=args.weight_decay)
 else:
     raise Exception('We do not support this optimizer yet!!')
 
 # learning rate schedule
-scheduler = lr_scheduler.MultiStepLR(
-    optimizer,
-    args.lr_decay_epoch,
-    gamma=args.lr_decay,
-    last_epoch=-1)
+if schedule:
+  scheduler = lr_scheduler.MultiStepLR(
+      optimizer,
+      args.lr_decay_epoch,
+      gamma=args.lr_decay,
+      last_epoch=-1)
 
 
 best_acc = 0.0
+  
 for epoch in range(1, args.epochs + 1):
     print('Current Epoch: ', epoch)
     train_loss = 0.
@@ -137,6 +147,10 @@ for epoch in range(1, args.epochs + 1):
             data, target = data.cuda(), target.cuda()
             output = model(data)
             loss = criterion(output, target)
+            def closure():
+              output = model(data)
+              loss = criterion(output, target)
+              return loss
             loss.backward(create_graph=True)
             train_loss += loss.item() * target.size()[0]
             total_num += target.size()[0]
@@ -147,6 +161,9 @@ for epoch in range(1, args.epochs + 1):
             elif args.optimizer in ['adahessian']:
                 _, gradsH = get_params_grad(model)
                 optimizer.step(gradsH)
+            elif args.optimizer in ['adahessian_sls']:
+                _, gradsH = get_params_grad(model)
+                optimizer.step(gradsH, closure = closure)
             else:
                 raise Exception('We do not support this optimizer yet!!')
 
