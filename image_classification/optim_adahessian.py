@@ -151,7 +151,7 @@ class Adahessian_sls(Optimizer):
             for i, p in enumerate(group['params']):
                 if p.grad is None:
                     continue
-                params = self.param_groups[i]['params']
+                params = p.data
                 params_current = deepcopy(params)
                 grad = deepcopy(gradsH[i].data)
                 state = self.state[p]
