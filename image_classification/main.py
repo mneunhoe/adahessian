@@ -62,6 +62,8 @@ parser.add_argument('--depth', type=int, default=20,
                     help='choose the depth of resnet')
 parser.add_argument('--optimizer', type=str, default='adahessian',
                     help='choose optim')
+parser.add_argument('--schedule', type=bool, default=True',
+                    help='turn on lr scheduler')
 
 args = parser.parse_args()
 # set random seed to reproduce the work
