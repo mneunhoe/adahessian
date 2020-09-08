@@ -62,7 +62,7 @@ parser.add_argument('--depth', type=int, default=20,
                     help='choose the depth of resnet')
 parser.add_argument('--optimizer', type=str, default='adahessian',
                     help='choose optim')
-parser.add_argument('--schedule', type=bool, default=False,
+parser.add_argument('--schedule', type=int, default=0,
                     help='turn on lr scheduler')
 
 args = parser.parse_args()
@@ -126,7 +126,7 @@ else:
     raise Exception('We do not support this optimizer yet!!')
 
 # learning rate schedule
-if args.schedule:
+if args.schedule>0:
   scheduler = lr_scheduler.MultiStepLR(
       optimizer,
       args.lr_decay_epoch,
