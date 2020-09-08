@@ -73,7 +73,7 @@ class Adahessian_sls(Optimizer):
     """
 
     def __init__(self, params, lr=0.15, betas=(0.9, 0.999), eps=1e-4,
-                 weight_decay=0, hessian_power=1, line_search = False):
+                 weight_decay=0, hessian_power=1, line_search = True):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= eps:
@@ -139,8 +139,7 @@ class Adahessian_sls(Optimizer):
         def closure_deterministic():
             with random_seed_torch(int(seed)):
                 return closure()
-        params = self.param_groups[0]['params']
-        params_current = deepcopy(params)
+        
         loss = None
         if closure is not None:
             loss = closure_deterministic()
@@ -152,7 +151,8 @@ class Adahessian_sls(Optimizer):
             for i, p in enumerate(group['params']):
                 if p.grad is None:
                     continue
-
+                params = self.param_groups[i]['params']
+                params_current = deepcopy(params)
                 grad = deepcopy(gradsH[i].data)
                 state = self.state[p]
 
