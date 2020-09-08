@@ -23,7 +23,7 @@ import torch
 from torch.optim.optimizer import Optimizer
 from copy import deepcopy
 import numpy as np
-
+import time
 
 class Adahessian_sls(Optimizer):
     """Implements Adahessian algorithm.
