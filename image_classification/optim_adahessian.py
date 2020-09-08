@@ -95,11 +95,11 @@ class Adahessian_sls(Optimizer):
         return hutchinson_trace
     
     def try_update(params, step_size, params_current, search_direction):
-    zipped = zip(params, params_current, search_direction)
+        zipped = zip(params, params_current, search_direction)
 
-    for p_next, p_current, search_direction in zipped:
-        #p_next.data = p_current - step_size * g_current
-        p_next.data = p_current + step_size * search_direction
+        for p_next, p_current, search_direction in zipped:
+            #p_next.data = p_current - step_size * g_current
+            p_next.data = p_current + step_size * search_direction
         
     def step(self, gradsH, closure=None):
         """Performs a single optimization step.
