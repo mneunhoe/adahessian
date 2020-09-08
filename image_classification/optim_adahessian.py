@@ -50,7 +50,13 @@ def random_seed_torch(seed, device=0):
         torch.set_rng_state(cpu_rng_state)
         torch.cuda.set_rng_state(gpu_rng_state, device)
 
+def try_update(params, step_size, params_current, search_direction):
+        zipped = zip(params, params_current, search_direction)
 
+        for p_next, p_current, search_direction in zipped:
+            #p_next.data = p_current - step_size * g_current
+            p_next.data = p_current + step_size * search_direction
+            
 class Adahessian_sls(Optimizer):
     """Implements Adahessian algorithm.
     It has been proposed in `ADAHESSIAN: An Adaptive Second OrderOptimizer for Machine Learning`.
@@ -120,12 +126,7 @@ class Adahessian_sls(Optimizer):
         
         return hutchinson_trace
     
-    def try_update(params, step_size, params_current, search_direction):
-        zipped = zip(params, params_current, search_direction)
-
-        for p_next, p_current, search_direction in zipped:
-            #p_next.data = p_current - step_size * g_current
-            p_next.data = p_current + step_size * search_direction
+    
         
     def step(self, gradsH, closure=None):
         """Performs a single optimization step.
