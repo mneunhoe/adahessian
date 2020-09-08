@@ -113,7 +113,7 @@ class Adahessian_sls(Optimizer):
             with random_seed_torch(int(seed)):
                 return closure()
         params = self.param_groups[0]['params']
-        params_current = copy.deepcopy(params)
+        params_current = deepcopy(params)
         loss = None
         if closure is not None:
             loss = closure_deterministic()
