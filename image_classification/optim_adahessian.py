@@ -201,7 +201,7 @@ class Adahessian_sls(Optimizer):
                     try_update(params, alpha, params_current, search_direction)
                     loss_next = closure_deterministic()
                     ls_it = 1
-                    while (prev_loss - loss_next) < (alpha * search_t) and ls_it < 100 :
+                    while (prev_loss - loss_next) < (alpha * search_t) and ls_it < 15 :
                             alpha = tau * alpha
                             try_update(params, alpha, params_current, search_direction)
                             loss_next = closure_deterministic()
