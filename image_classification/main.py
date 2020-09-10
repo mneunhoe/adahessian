@@ -117,10 +117,10 @@ elif args.optimizer == 'adahessian':
         weight_decay=args.weight_decay)
 elif args.optimizer == 'adahessian_sls':
     print('For AdaHessian, we use the decoupled weight decay as AdamW. Here we automatically correct this for you! If this is not what you want, please modify the code!')
-    args.weight_decay = 0
+    args.weight_decay = args.weight_decay / args.lr
     optimizer = Adahessian_sls(
         model.parameters(),
-        lr=1,
+        lr=args.lr,
         weight_decay=args.weight_decay)
 else:
     raise Exception('We do not support this optimizer yet!!')
