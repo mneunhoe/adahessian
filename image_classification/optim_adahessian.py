@@ -170,6 +170,8 @@ class Adahessian_sls(Optimizer):
                 
                 lr = group['lr']
                 
+                weight_decay = group['weight_decay']
+                
                 state['step'] += 1
 
                 # Decay the first and second moment running average coefficient
@@ -189,7 +191,7 @@ class Adahessian_sls(Optimizer):
                 
                 if group['line_search']:
                     
-                    search_direction = -1* (exp_avg / bias_correction1 / denom + group['weight_decay'] * p.data)
+                    search_direction = -1* (exp_avg / bias_correction1 / denom + weight_decay * p.data)
                     
                     line_m = torch.sum(torch.mul(grad, search_direction))
                     
@@ -210,7 +212,7 @@ class Adahessian_sls(Optimizer):
                 
                 # make update
                 p.data = p.data - \
-                    group['lr'] * (exp_avg / bias_correction1 / denom + group['weight_decay'] * p.data)
+                    group['lr'] * (exp_avg / bias_correction1 / denom + weight_decay * p.data)
 
         return loss
 
