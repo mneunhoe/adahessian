@@ -197,7 +197,7 @@ class Adahessian_sls(Optimizer):
                     
                     prev_loss = loss
                     c = 0.1
-                    tau = 0.9
+                    tau = 0.5
                     search_t = -c*line_m
                     
                     try_update(params, alpha, params_current, search_direction)
