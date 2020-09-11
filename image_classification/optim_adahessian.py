@@ -196,7 +196,7 @@ class Adahessian_sls(Optimizer):
                     line_m = torch.sum(torch.mul(grad, search_direction))
                     
                     prev_loss = loss
-                    c = 0.1
+                    c = 0.5
                     tau = 0.5
                     search_t = -c*line_m
                     
