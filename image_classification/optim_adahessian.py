@@ -196,14 +196,14 @@ class Adahessian_sls(Optimizer):
                     line_m = torch.sum(torch.mul(grad, search_direction))
                     
                     prev_loss = loss
-                    c = 0.5
+                    c = 0.25
                     tau = 0.5
                     search_t = -c*line_m
                     
                     try_update(params, alpha, params_current, search_direction)
                     loss_next = closure_deterministic()
                     ls_it = 1
-                    while (prev_loss - loss_next) < (alpha * search_t) and ls_it < 25 :
+                    while (prev_loss - loss_next) < (alpha * search_t) and ls_it < 15 :
                             alpha = tau * alpha
                             #search_direction = -(exp_avg / bias_correction1 / denom + weight_decay/alpha * p.data)
                             try_update(params, alpha, params_current, search_direction)
