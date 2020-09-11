@@ -52,7 +52,7 @@ parser.add_argument('--lr', type=float, default=0.15, metavar='LR',
                     help='learning rate (default: 0.15)')
 parser.add_argument('--lr-decay', type=float, default=0.1,
                     help='learning rate ratio')
-parser.add_argument('--lr-decay-epoch', type=int, nargs='+', default=[20,40,60,80, 120],
+parser.add_argument('--lr-decay-epoch', type=int, nargs='+', default=[80, 120],
                     help='decrease learning rate at these epochs.')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
@@ -117,7 +117,7 @@ elif args.optimizer == 'adahessian':
         weight_decay=args.weight_decay)
 elif args.optimizer == 'adahessian_sls':
     print('For AdaHessian, we use the decoupled weight decay as AdamW. Here we automatically correct this for you! If this is not what you want, please modify the code!')
-    args.weight_decay = args.weight_decay / args.lr
+    args.weight_decay = args.weight_decay
     optimizer = Adahessian_sls(
         model.parameters(),
         lr=args.lr,
