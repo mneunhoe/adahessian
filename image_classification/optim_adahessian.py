@@ -231,7 +231,7 @@ class Adahessian_sls(Optimizer):
                 params = p.data
                 params_current = deepcopy(params)
                 
-                grad_current = get_grad_list(params)
+                grad_current = get_grad_list(p)
 
                 grad_norm = compute_grad_norm(grad_current)
                 
