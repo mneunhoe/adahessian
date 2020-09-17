@@ -283,7 +283,7 @@ class Adahessian_sls(Optimizer):
 
                                 # compute the loss at the next step; no need to compute gradients.
                                 loss_next = closure_deterministic()
-                                self.state['n_forwards'] += 1
+                                #self.state['n_forwards'] += 1
 
                                 # =================================================
                                 # Line search
