@@ -225,15 +225,14 @@ class Adahessian_sls(Optimizer):
         hut_trace = self.get_trace(gradsH)
 
         for group in self.param_groups:
-	    params = group['params']
-	    params_current = copy.deepcopy(params)
-	    grad_current = get_grad_list(params)
-	    grad_norm = compute_grad_norm(grad_current)
+            params = group['params']
+            params_current = copy.deepcopy(params)
+            grad_current = get_grad_list(params)
+            grad_norm = compute_grad_norm(grad_current)
+            
             for i, p in enumerate(params):
                 if p.grad is None:
                     continue
-                
-                
                 grad = deepcopy(gradsH[i].data)
                 state = self.state[p]
 
