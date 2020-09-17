@@ -226,7 +226,7 @@ class Adahessian_sls(Optimizer):
 
         for group in self.param_groups:
             params = group['params']
-            params_current = copy.deepcopy(params)
+            params_current = deepcopy(params)
             grad_current = get_grad_list(params)
             grad_norm = compute_grad_norm(grad_current)
             
