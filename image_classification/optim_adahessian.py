@@ -279,7 +279,7 @@ class Adahessian_sls(Optimizer):
                             search_direction = -(exp_avg / bias_correction1 / denom + weight_decay/lr * p.data)
                             for e in range(100):
                                 # try a prospective step
-                                try_update(params, step_size_old, params_current, search_direction)
+                                try_update(p.data, step_size_old, params_current, search_direction)
 
                                 # compute the loss at the next step; no need to compute gradients.
                                 loss_next = closure_deterministic()
