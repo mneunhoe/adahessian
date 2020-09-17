@@ -227,8 +227,8 @@ class Adahessian_sls(Optimizer):
         for group in self.param_groups:
             params = group['params']
             p_current = deepcopy(params)
-            grad_current = get_grad_list(params)
-            grad_norm = compute_grad_norm(grad_current)
+            #grad_current = get_grad_list(params)
+            #grad_norm = compute_grad_norm(grad_current)
             
             for i, p in enumerate(params):
                 if p.grad is None:
@@ -236,6 +236,8 @@ class Adahessian_sls(Optimizer):
                 grad = deepcopy(gradsH[i].data)
                 state = self.state[p]
                 params_current = p_current[i]
+                g = p.grad
+                grad_norm = torch.sqrt(torch.sum(torch.mul(g, g)))
 
                 # State initialization
                 if len(state) == 0:
