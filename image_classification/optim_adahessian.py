@@ -275,7 +275,7 @@ class Adahessian_sls(Optimizer):
                             # check if condition is satisfied
                             found = 0
                             step_size_old = lr
-                            search_direction = -(exp_avg / bias_correction1 / denom + weight_decay/alpha * p.data)
+                            search_direction = -(exp_avg / bias_correction1 / denom + weight_decay/lr * p.data)
                             for e in range(100):
                                 # try a prospective step
                                 try_update(params, alpha, params_current, search_direction)
