@@ -288,16 +288,16 @@ class Adahessian_sls(Optimizer):
                                 # =================================================
                                 # Line search
                                 if group['line_search_fn'] == "armijo":
-                                    armijo_results = check_armijo_conditions(step_size=step_size,
+                                    armijo_results = check_armijo_conditions(step_size=lr,
                                                                 step_size_old=step_size_old,
                                                                 loss=loss,
                                                                 grad_norm=grad_norm,
                                                                 loss_next=loss_next,
                                                                 c=0.25,
                                                                 beta_b=0.5)
-                                    found, step_size, step_size_old = armijo_results
+                                    found, lr, step_size_old = armijo_results
                                     if found == 1:
-                                        lr = step_size
+                                        lr = lr
                                         break
                     
                 
