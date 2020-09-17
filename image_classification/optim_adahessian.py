@@ -226,7 +226,7 @@ class Adahessian_sls(Optimizer):
 
         for group in self.param_groups:
             params = group['params']
-            params_current = deepcopy(params)
+            p_current = deepcopy(params)
             grad_current = get_grad_list(params)
             grad_norm = compute_grad_norm(grad_current)
             
@@ -235,6 +235,7 @@ class Adahessian_sls(Optimizer):
                     continue
                 grad = deepcopy(gradsH[i].data)
                 state = self.state[p]
+                params_current = p_current[i]
 
                 # State initialization
                 if len(state) == 0:
